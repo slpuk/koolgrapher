@@ -2,7 +2,7 @@
 
 > **Визуальный редактор графов для создания и редактирования диаграмм, схем и сетей**
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-0.1.0-blue?style=for-the-badge)
 ![Electron](https://img.shields.io/badge/Electron-25.0+-47848F?style=for-the-badge&logo=electron&logoColor=white)
 ![Two.js](https://img.shields.io/badge/two.js-0.8+-orange?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
