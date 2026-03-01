@@ -1,0 +1,144 @@
+{
+  "nodes": [
+    {
+      "color": "#ef5350",
+      "id": "root",
+      "label": "Корень",
+      "linewidth": 3,
+      "shape": "circle",
+      "size": 30,
+      "x": 300,
+      "y": 80
+    },
+    {
+      "color": "#42a5f5",
+      "id": "child1",
+      "label": "Дочерний 1",
+      "linewidth": 2,
+      "shape": "square",
+      "size": 22,
+      "x": 150,
+      "y": 200
+    },
+    {
+      "color": "#66bb6a",
+      "id": "child2",
+      "label": "Дочерний 2",
+      "linewidth": 2,
+      "shape": "square",
+      "size": 22,
+      "x": 300,
+      "y": 200
+    },
+    {
+      "color": "#ffa726",
+      "id": "child3",
+      "label": "Дочерний 3",
+      "linewidth": 2,
+      "shape": "square",
+      "size": 22,
+      "x": 450,
+      "y": 200
+    },
+    {
+      "color": "#ab47bc",
+      "id": "grandchild1",
+      "label": "Внук 1",
+      "linewidth": 2,
+      "shape": "triangle",
+      "size": 20,
+      "x": 100,
+      "y": 320
+    },
+    {
+      "color": "#7e57c2",
+      "id": "grandchild2",
+      "label": "Внук 2",
+      "linewidth": 2,
+      "shape": "triangle",
+      "size": 20,
+      "x": 200,
+      "y": 320
+    },
+    {
+      "color": "#26c6da",
+      "id": "grandchild3",
+      "label": "Внук 3",
+      "linewidth": 2,
+      "shape": "triangle",
+      "size": 20,
+      "x": 300,
+      "y": 320
+    },
+    {
+      "color": "#ec407a",
+      "id": "grandchild4",
+      "label": "Внук 4",
+      "linewidth": 2,
+      "shape": "triangle",
+      "size": 20,
+      "x": 400,
+      "y": 320
+    },
+    {
+      "color": "#ff7043",
+      "id": "grandchild5",
+      "label": "Внук 5",
+      "linewidth": 2,
+      "shape": "triangle",
+      "size": 20,
+      "x": 500,
+      "y": 320
+    }
+  ],
+  "edges": [
+    {
+      "endId": "child1",
+      "id": "e1",
+      "label": "левый",
+      "startId": "root"
+    },
+    {
+      "endId": "child2",
+      "id": "e2",
+      "label": "центр",
+      "startId": "root"
+    },
+    {
+      "endId": "child3",
+      "id": "e3",
+      "label": "правый",
+      "startId": "root"
+    },
+    {
+      "endId": "grandchild1",
+      "id": "e4",
+      "label": "1.1",
+      "startId": "child1"
+    },
+    {
+      "endId": "grandchild2",
+      "id": "e5",
+      "label": "1.2",
+      "startId": "child1"
+    },
+    {
+      "endId": "grandchild3",
+      "id": "e6",
+      "label": "2.1",
+      "startId": "child2"
+    },
+    {
+      "endId": "grandchild4",
+      "id": "e7",
+      "label": "3.1",
+      "startId": "child3"
+    },
+    {
+      "endId": "grandchild5",
+      "id": "e8",
+      "label": "3.2",
+      "startId": "child3"
+    }
+  ]
+}
