@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>KoolGraph - Web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="themes/dark.css" id="theme-style">
+    <script src="../node_modules/two.js/build/two.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="top">
+            <header id="titleBar">
+                <div class="title">KoolGrapher</div>
+                <div class="windowControls">
+                    <button id="theme-toggle" aria-label="Toggle theme">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path id="theme-icon" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" />
+                        </svg>
+                    </button>
+                    <button id="minimize" aria-label="Minimize">
+                        <svg width="16" height="16" viewBox="0 0 11 11" fill="currentColor">
+                            <path d="M11,4.9v1.1H0V4.399h11z" />
+                        </svg>
+                    </button>
+                    <button id="maximize" class="maximize-btn" aria-label="Maximize">
+                        <svg class="maximize-icon" width="16" height="16" viewBox="0 0 11 11" fill="currentColor">
+                            <path
+                                d="M0,1.7v7.6C0,10.2,0.8,11,1.7,11h7.6c0.9,0,1.7-0.8,1.7-1.7V1.7C11,0.8,10.2,0,9.3,0H1.7C0.8,0,0,0.8,0,1.7z M8.8,9.9H2.2c-0.6,0-1.1-0.5-1.1-1.1V2.2c0-0.6,0.5-1.1,1.1-1.1h6.7c0.6,0,1.1,0.5,1.1,1.1v6.7C9.9,9.4,9.4,9.9,8.8,9.9z" />
+                        </svg>
+                        <svg class="restore-icon" width="16" height="16" viewBox="0 0 11 11" fill="currentColor"
+                            style="display: none;">
+                            <path
+                                d="M7.9,2.2h-7C0.4,2.2,0,2.6,0,3.1v7C0,10.6,0.4,11,0.9,11h7c0.5,0,0.9-0.4,0.9-0.9v-7C8.8,2.6,8.4,2.2,7.9,2.2z M7.7,9.6 c0,0.2-0.1,0.3-0.3,0.3h-6c-0.2,0-0.3-0.1-0.3-0.3v-6c0-0.2,0.1-0.3,0.3-0.3h6c0.2,0,0.3,0.1,0.3,0.3V9.6z" />
+                            <path d="M10,0H3.5v1.1h6.1c0.2,0,0.3,0.1,0.3,0.3v6.1H11V1C11,0.4,10.6,0,10,0z" />
+                        </svg>
+                    </button>
+                    <button id="close" aria-label="Close">
+                        <svg width="16" height="16" viewBox="0 0 11 11" fill="currentColor">
+                            <path
+                                d="M6.279 5.5L11 10.221l-.779.779L5.5 6.279.779 11 0 10.221 4.721 5.5 0 .779.779 0 5.5 4.721 10.221 0 11 .779 6.279 5.5z" />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+        </div>
+        <div class="content">
+            <div class="toolbar">
+                <button id="add" aria-label="Add">Добавить</button>
+                <button id="connect" aria-label="Connect">Связать</button>
+                <button id="delete" aria-label="Delete">Удалить</button>
+                <a id="separator">|</a>
+                <button id="save" aria-label="Save">Сохранить</button>
+                <button id="load" aria-label="Load">Загрузить</button>
+            </div>
+            <div class="workspace">
+                <div class="canvas-container">
+                    <div id="graphCanvas"></div>
+                </div>
+                <div id="nodeProperties" class="properties-panel hidden">
+                    <div class="properties-header">
+                        <h3>Свойства узла</h3>
+                        <button id="closeProperties" class="close-btn">✕</button>
+                    </div>
+                    <div class="properties-content">
+                        <div class="property-group">
+                            <label for="nodeId">ID:</label>
+                            <input type="text" id="nodeId" readonly class="property-input">
+                        </div>
+
+                        <div class="property-group">
+                            <label for="nodeLabel">Текст:</label>
+                            <input type="text" id="nodeLabel" class="property-input" placeholder="Введите текст">
+                        </div>
+
+                        <div class="property-group">
+                            <label>Форма:</label>
+                            <div class="shape-selector">
+                                <button class="shape-btn" data-shape="circle" title="Круг">
+                                    <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="8" fill="var(--toolbar-button-bg)"
+                                            stroke="currentColor" stroke-width="2" />
+                                    </svg>
+                                </button>
+                                <button class="shape-btn" data-shape="square" title="Квадрат">
+                                    <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <rect x="4" y="4" width="16" height="16" fill="var(--toolbar-button-bg)"
+                                            stroke="currentColor" stroke-width="2" />
+                                    </svg>
+                                </button>
+                                <button class="shape-btn" data-shape="triangle" title="Треугольник">
+                                    <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <polygon points="12,4 20,20 4,20" fill="var(--toolbar-button-bg)"
+                                            stroke="currentColor" stroke-width="2" />
+                                    </svg>
+                                </button>
+                                <button class="shape-btn" data-shape="diamond" title="Ромб">
+                                    <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <polygon points="12,4 20,12 12,20 4,12" fill="var(--toolbar-button-bg)"
+                                            stroke="currentColor" stroke-width="2" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="property-group">
+                            <label for="nodeColor">Цвет:</label>
+                            <div class="color-input-group">
+                                <input type="color" id="nodeColor" class="color-picker" value="#d4d4d4">
+                                <input type="text" id="nodeColorHex" class="color-hex" value="#d4d4d4" maxlength="7">
+                            </div>
+                        </div>
+
+                        <div class="property-group">
+                            <label for="nodeSize">Размер:</label>
+                            <input type="range" id="nodeSize" min="15" max="40" value="20" class="size-slider">
+                            <span id="nodeSizeValue" class="size-value">20</span>
+                        </div>
+
+                        <div class="property-group">
+                            <label for="nodeBorderWidth">Толщина контура:</label>
+                            <input type="range" id="nodeBorderWidth" min="1" max="5" value="1" class="size-slider">
+                            <span id="nodeBorderWidthValue" class="size-value">1</span>
+                        </div>
+
+                        <div class="property-actions">
+                            <button id="applyNodeProperties" class="apply-btn">Применить</button>
+                            <button id="resetNodeProperties" class="reset-btn">Сбросить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <small id="statusbar">statusbar</small>
+        </div>
+    </div>
+    <script src="scripts/graph.js"></script>
+    <script>
+        function updateThemeIcon(isDark) {
+            const iconPath = document.getElementById('theme-icon');
+            if (isDark) {
+                iconPath.setAttribute('d', 'M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z M12 5v14c-3.86 0-7-3.14-7-7s3.14-7 7-7z');
+            } else {
+                iconPath.setAttribute('d', 'M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2v-2H2v2zm18 0h2v-2h-2v2zM11 2v2h2V2h-2zm0 18v2h2v-2h-2zM5.99 4.58l-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zm12.02 12.02l-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zm1.41-12.02l-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zM5.99 17.59l-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41z');
+            }
+        }
+
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-style');
+            const isDark = themeLink.getAttribute('href') === 'themes/dark.css';
+
+            themeLink.setAttribute('href', isDark ? 'themes/light.css' : 'themes/dark.css');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            updateThemeIcon(!isDark);
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeLink = document.getElementById('theme-style');
+
+            if (savedTheme === 'light') {
+                themeLink.setAttribute('href', 'themes/light.css');
+                updateThemeIcon(false);
+            } else {
+                themeLink.setAttribute('href', 'themes/dark.css');
+                updateThemeIcon(true);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedTheme();
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        });
+
+        const maximizeBtn = document.getElementById('maximize');
+        const maximizeIcon = document.querySelector('.maximize-icon');
+        const restoreIcon = document.querySelector('.restore-icon');
+
+        function updateMaximizeIcon(isMaximized) {
+            if (isMaximized) {
+                maximizeIcon.style.display = 'none';
+                restoreIcon.style.display = 'block';
+                maximizeBtn.setAttribute('aria-label', 'Restore');
+            } else {
+                maximizeIcon.style.display = 'block';
+                restoreIcon.style.display = 'none';
+                maximizeBtn.setAttribute('aria-label', 'Maximize');
+            }
+        }
+
+        window.electron.onWindowStateChange((isMaximized) => {
+            updateMaximizeIcon(isMaximized);
+        });
+
+        maximizeBtn.addEventListener('click', () => {
+            setTimeout(() => {
+                window.electron.isMaximized().then(updateMaximizeIcon);
+            }, 50);
+        });
+
+        document.getElementById('minimize').addEventListener('click', () => {
+            window.electron.minimize();
+        });
+
+        document.getElementById('maximize').addEventListener('click', () => {
+            window.electron.maximize();
+        });
+
+        document.getElementById('close').addEventListener('click', () => {
+            window.electron.close();
+        });
+
+        document.querySelector('.title').addEventListener('dblclick', () => {
+            window.electron.maximize();
+        });
+    </script>
+    <div id="nodeShapeModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>Выберите форму узла</h3>
+            <div class="shape-grid">
+                <div class="shape-option" data-shape="circle">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <circle cx="30" cy="30" r="25" fill="var(--toolbar-button-bg)" stroke="var(--main-text)"
+                            stroke-width="2" />
+                    </svg>
+                    <span>Круг</span>
+                </div>
+                <div class="shape-option" data-shape="square">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <rect x="10" y="10" width="40" height="40" fill="var(--toolbar-button-bg)"
+                            stroke="var(--main-text)" stroke-width="2" />
+                    </svg>
+                    <span>Квадрат</span>
+                </div>
+                <div class="shape-option" data-shape="triangle">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <polygon points="30,5 55,50 5,50" fill="var(--toolbar-button-bg)" stroke="var(--main-text)"
+                            stroke-width="2" />
+                    </svg>
+                    <span>Треугольник</span>
+                </div>
+                <div class="shape-option" data-shape="diamond">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <polygon points="30,5 55,30 30,55 5,30" fill="var(--toolbar-button-bg)"
+                            stroke="var(--main-text)" stroke-width="2" />
+                    </svg>
+                    <span>Ромб</span>
+                </div>
+                <div class="shape-option unavailable" data-shape="star">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <polygon points="30,5 37,22 55,22 40,35 45,55 30,45 15,55 20,35 5,22 23,22"
+                            fill="var(--toolbar-button-bg)" stroke="var(--main-text)" stroke-width="2" />
+                    </svg>
+                    <span>Звезда</span>
+                </div>
+                <div class="shape-option unavailable" data-shape="hexagon">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <polygon points="30,5 50,15 50,40 30,51 10,40 10,15" fill="var(--toolbar-button-bg)"
+                            stroke="var(--main-text)" stroke-width="2" />
+                    </svg>
+                    <span>Шестиугольник</span>
+                </div>
+                <div class="shape-option unavailable" data-shape="parallelogram">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <polygon points="15,10 50,10 45,50 10,50" fill="var(--toolbar-button-bg)"
+                            stroke="var(--main-text)" stroke-width="2" />
+                    </svg>
+                    <span>Параллелограмм</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('nodeShapeModal');
+            const addButton = document.getElementById('add');
+            let currentShape = 'circle';
+
+            addButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+
+            document.querySelectorAll('.shape-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const shape = option.dataset.shape;
+                    currentShape = shape;
+
+                    console.log('Selected form:', shape);
+
+                    option.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        option.style.transform = '';
+                    }, 150);
+
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }, 200);
+                });
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+:root {
+    --main-bg: #f3f3f3;
+    --main-text: #1e1e1e;
+    --toolbar-button-bg: #e1e1e1;
+    --toolbar-button-border: #c1c1c1;
+    --toolbar-button-shadow: rgba(0, 0, 0, 0.1);
+    --toolbar-button-hover: #d1d1d1;
+    --toolbar-button-active: #c1c1c1;
+    --canvas-bg: #ffffff;
+    --border-color: #e1e1e1;
+}

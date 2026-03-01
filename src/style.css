@@ -1,0 +1,737 @@
+@font-face {
+    font-family: 'Michroma';
+    src: url('assets/fonts/Michroma-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Jura';
+    src: url('assets/fonts/Jura-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+body,
+.main>.top,
+.card,
+.windowControls button,
+.toolbar button {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--main-bg);
+    color: var(--main-text);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    border: 1px solid #3c3c3c;
+}
+
+.main>.top {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    background-color: #282828;
+    color: #d4d4d4;
+    border-bottom: 3px solid #3c3c3c;
+    -webkit-user-select: none;
+    z-index: 10000;
+}
+
+#titleBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    padding-right: 0px;
+}
+
+#titleBar>.title {
+    font-family: "Michroma", sans-serif;
+    line-height: 40px;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    -webkit-app-region: drag;
+    flex-grow: 1;
+}
+
+#titleBar>.windowControls {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    position: relative;
+    z-index: 10001;
+    pointer-events: auto;
+}
+
+.windowControls button {
+    width: 45px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: #d4d4d4;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    outline: none;
+    pointer-events: auto;
+}
+
+.windowControls button:hover {
+    background-color: #3c3c3c;
+    color: #fff;
+}
+
+.windowControls button#close:hover {
+    background-color: #f22;
+    color: #fff;
+}
+
+.content {
+    flex: 1;
+    padding: 16px;
+    overflow: hidden;
+    background-color: inherit;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.toolbar {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.toolbar #separator {
+    font-size: 1.4rem;
+    color: var(--border-color);
+    -webkit-user-select: none;
+}
+
+.toolbar button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    color: var(--main-text);
+    background: var(--toolbar-button-bg);
+    border: 1px solid var(--toolbar-button-border);
+    box-shadow: 0 2px 4px var(--toolbar-button-shadow);
+}
+
+.toolbar button:hover {
+    background: var(--toolbar-button-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px var(--toolbar-button-shadow);
+}
+
+.toolbar button:active {
+    background: var(--toolbar-button-active);
+    transform: translateY(0);
+    box-shadow: 0 1px 2px var(--toolbar-button-shadow);
+}
+
+.toolbar #connect.active,
+.toolbar #save {
+    background: #2e7d32;
+    border-color: #1b5e20;
+    color: white;
+}
+
+.toolbar #connect.active:hover,
+.toolbar #save:hover {
+    background: #35913a;
+}
+
+.toolbar #connect.active:active,
+.toolbar #save:active {
+    background: #1b5e20;
+}
+
+.toolbar #delete {
+    background: #d32f2f;
+    color: white;
+    border-color: #b71c1c;
+}
+
+.toolbar #delete:hover {
+    background: #f44336;
+}
+
+.toolbar #delete:active {
+    background: #b71c1c;
+}
+
+.toolbar #load {
+    background: #1565c0;
+    border-color: #0d47a1;
+    color: white;
+}
+
+.toolbar #load:hover {
+    background: #1770d6;
+}
+
+.toolbar #load:active {
+    background: #0d47a1;
+}
+
+.canvas-container {
+    flex: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    background: var(--canvas-bg);
+    min-height: 0;
+    position: relative;
+    -webkit-user-select: none;
+    transition: all 0.3s ease;
+}
+
+#graphCanvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#graphCanvas svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#graphCanvas text {
+    pointer-events: none;
+    user-select: none;
+    dominant-baseline: middle;
+    text-anchor: middle;
+}
+
+#graphCanvas circle,
+#graphCanvas rect,
+#graphCanvas polygon {
+    transition: all 0.2s ease;
+}
+
+#graphCanvas [data-selected="true"] {
+    filter: drop-shadow(0 0 8px #ffaa00);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: var(--main-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    padding-top: 0;
+    min-width: 400px;
+    max-width: 600px;
+    max-height: 55vh;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal-content h3 {
+    margin: 0px 0 20px 0;
+    text-align: center;
+    font-family: 'Jura', sans-serif;
+    color: var(--main-text);
+    -webkit-user-select: none;
+    position: sticky;
+    top: 0;
+    background: var(--main-bg);
+    padding: 12px 0 12px 0;
+    z-index: 2;
+    border-bottom: 2px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--toolbar-button-bg);
+    border-radius: 4px;
+    margin: 8px 0;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--main-text);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.shape-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 0;
+    padding: 4px;
+    padding-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.shape-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--toolbar-button-bg);
+    border: 1px solid var(--toolbar-button-border);
+}
+
+.shape-option:hover {
+    transform: scale(1.05);
+    background: var(--toolbar-button-hover);
+    box-shadow: 0 8px 16px var(--toolbar-button-shadow);
+}
+
+.shape-option.unavailable {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+    border-style: dashed;
+    border-color: var(--border-color);
+    background: var(--toolbar-button-active);
+    position: relative;
+}
+
+.shape-option.unavailable::after {
+    content: "✕";
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 14px;
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.shape-option.unavailable:hover {
+    transform: none;
+    background: var(--toolbar-button-active);
+    box-shadow: none;
+}
+
+.shape-option svg circle,
+.shape-option svg rect,
+.shape-option svg polygon {
+    fill: var(--main-bg);
+    stroke: var(--main-text);
+    transition: all 0.2s ease;
+}
+
+.shape-option:hover svg circle,
+.shape-option:hover svg rect,
+.shape-option:hover svg polygon {
+    fill: var(--main-text);
+    stroke: var(--main-bg);
+}
+
+.shape-option span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--main-text);
+    -webkit-user-select: none;
+}
+
+#statusbar {
+    -webkit-user-select: none;
+}
+
+.workspace {
+    display: flex;
+    flex: 1;
+    gap: 12px;
+    min-height: 0;
+    position: relative;
+}
+
+.properties-panel {
+    width: 280px;
+    background: var(--main-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.properties-panel.hidden {
+    display: none;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.properties-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--toolbar-button-bg);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.properties-header h3 {
+    margin: 0;
+    font-family: 'Jura', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--main-text);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--main-text);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+    background: var(--toolbar-button-hover);
+    transform: scale(1.1);
+}
+
+.properties-content {
+    padding: 16px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.property-group {
+    margin-bottom: 16px;
+}
+
+.property-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--main-text);
+    font-family: 'Jura', sans-serif;
+}
+
+.property-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--toolbar-button-bg);
+    color: var(--main-text);
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.property-input:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+}
+
+.property-input[readonly] {
+    background: var(--toolbar-button-active);
+    cursor: default;
+    opacity: 0.7;
+}
+
+.shape-selector {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.shape-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background: var(--toolbar-button-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--main-text);
+}
+
+.shape-btn:hover {
+    background: var(--toolbar-button-hover);
+    transform: translateY(-2px);
+}
+
+.shape-btn.active {
+    border-color: #2e7d32;
+    background: var(--toolbar-button-hover);
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.3);
+}
+
+.shape-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.color-input-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.color-picker {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    background: var(--toolbar-button-bg);
+}
+
+.color-hex {
+    flex: 1;
+    padding: 8px 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--toolbar-button-bg);
+    color: var(--main-text);
+    font-size: 14px;
+    font-family: monospace;
+    text-transform: uppercase;
+}
+
+.color-hex:focus {
+    outline: none;
+    border-color: #2e7d32;
+}
+
+.size-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--toolbar-button-bg);
+    outline: none;
+    -webkit-appearance: none;
+    margin: 8px 0;
+}
+
+.size-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--main-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid var(--border-color);
+}
+
+.size-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #2e7d32;
+}
+
+.size-value {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--main-text);
+    min-width: 30px;
+    text-align: center;
+}
+
+.property-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 2px solid var(--border-color);
+}
+
+.apply-btn,
+.reset-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.apply-btn {
+    background: #2e7d32;
+    color: white;
+}
+
+.apply-btn:hover {
+    background: #1b5e20;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.reset-btn {
+    background: var(--toolbar-button-bg);
+    color: var(--main-text);
+    border: 2px solid var(--border-color);
+}
+
+.reset-btn:hover {
+    background: var(--toolbar-button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.properties-content::-webkit-scrollbar {
+    width: 8px;
+    transition: all 0.2s ease;
+}
+
+.properties-content::-webkit-scrollbar-track {
+    background: var(--toolbar-button-bg);
+    border-radius: 4px;
+}
+
+.properties-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.properties-content::-webkit-scrollbar-thumb:hover {
+    background: var(--main-text);
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        min-width: 300px;
+        max-width: 90%;
+        padding: 16px;
+    }
+
+    .shape-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .workspace {
+        flex-direction: column;
+    }
+
+    .properties-panel {
+        width: 100%;
+        max-height: 300px;
+    }
+}
