@@ -1,12 +1,34 @@
 {
   "name": "koolgrapher",
   "displayName": "KoolGrapher",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Визуальный редактор графов",
   "license": "MIT",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build" : "electron-builder",
+    "build:win": "electron-builder --win portable",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.koolgrapher.app",
+    "asar": true,
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icons",
+      "category": "Utility"
+    }
   },
   "dependencies": {
     "two.js": "^0.8.23"
