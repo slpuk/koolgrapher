@@ -5,7 +5,7 @@
 ![Version](https://img.shields.io/badge/version-0.1.0-blue?style=for-the-badge)
 ![Electron](https://img.shields.io/badge/Electron-25.0+-47848F?style=for-the-badge&logo=electron&logoColor=white)
 ![Two.js](https://img.shields.io/badge/two.js-0.8+-orange?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
+![License](https://img.shields.io/badge/license-GPLv3-a32d2a?style=for-the-badge)
 
 **KoolGrapher** — это легковесный и интуитивно понятный редактор графов, построенный на Electron и Two.js. Приложение позволяет создавать, редактировать и визуализировать графы с поддержкой различных форм узлов, настраиваемых свойств и сохранения в собственном формате.
 
@@ -157,4 +157,4 @@ koolgrapher/
 
 ## Лицензия
 
-Проект распространяется под лицензией MIT. Подробнее см. в файле [LICENSE](LICENSE).
+Проект распространяется под лицензией GPLv3. Подробнее см. в файле [LICENSE](LICENSE).
