@@ -17,6 +17,7 @@ class Graph {
         this.dragging = false;
         this.dragOffset = { x: 0, y: 0 };
         this.connectStart = null;
+        this.snapActive = false;
 
         this.nodeCounter = 0;
         this.edgeCounter = 0;
@@ -103,6 +104,7 @@ class Graph {
         else if (node.shape === 'square') size = node.width / 2;
         else if (node.shape === 'triangle') size = 25;
         else if (node.shape === 'diamond') size = 25;
+        else if (node.shape === 'hexagon') size = 25;
 
         this.nodeSizeSlider.value = size;
         this.nodeSizeValue.textContent = size;
@@ -235,6 +237,12 @@ class Graph {
         return '#d4d4d4';
     }
 
+    toggleSnap() {
+        this.snapActive = !this.snapActive;
+        this.updateToolbarButtons();
+        this.updateStatusBar(`Привязка к сетке ${this.snapActive ? 'включена' : 'выключена'}`);
+    }
+
     updateNodeSize(node, size) {
         if (node.shape === 'circle') {
             node.radius = size;
@@ -244,6 +252,8 @@ class Graph {
         } else if (node.shape === 'triangle') {
             node.scale = size / 25;
         } else if (node.shape === 'diamond') {
+            node.scale = size / 25;
+        } else if (node.shape === 'hexagon') {
             node.scale = size / 25;
         }
     }
@@ -476,6 +486,12 @@ class Graph {
                     return node;
                 }
             }
+            else if (node.shape === 'hexagon') {
+                const manhattanDist = Math.abs(x - node.position.x) + Math.abs(y - node.position.y);
+                if (manhattanDist <= tolerance * 1.5) {
+                    return node;
+                }
+            }
         }
         return null;
     }
@@ -496,6 +512,9 @@ class Graph {
             case 'diamond':
                 node = this.two.makePolygon(x, y, 25, 4);
                 node.rotation = Math.PI / 4;
+                break;
+            case 'hexagon':
+                node = this.two.makePolygon(x, y, 25, 6);
                 break;
             default:
                 node = this.two.makeCircle(x, y, 20);
@@ -700,13 +719,20 @@ class Graph {
             'select': document.querySelector('[data-mode="select"]'),
             'add': document.getElementById('add'),
             'connect': document.getElementById('connect'),
-            'delete': document.getElementById('delete')
+            'delete': document.getElementById('delete'),
+            'snap': document.getElementById('snap')
         };
 
         if (buttons.connect) buttons.connect.classList.remove('active');
 
+        if (buttons.snap) buttons.snap.classList.remove('active');
+
         if (this.mode === 'connect' && buttons.connect) {
             buttons.connect.classList.add('active');
+        }
+
+        if (this.snapActive && buttons.snap) {
+            buttons.snap.classList.add('active');
         }
     }
 
@@ -761,7 +787,8 @@ class Graph {
                 size: node.shape === 'circle' ? node.radius :
                     node.shape === 'square' ? node.width / 2 :
                         node.shape === 'triangle' ? 25 :
-                            node.shape === 'diamond' ? 25 : 20
+                            node.shape === 'diamond' ? 25 :
+                                node.shape === 'hexagon' ? 25 : 20
             })),
             edges: this.edges.map(edge => ({
                 id: edge.id,
@@ -868,6 +895,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteButton = document.getElementById('delete');
     const saveButton = document.getElementById('save');
     const loadButton = document.getElementById('load');
+    const snapButton = document.getElementById('snap');
 
     connectButton.replaceWith(connectButton.cloneNode(true));
     const newConnectButton = document.getElementById('connect');
@@ -902,6 +930,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadButton.addEventListener('click', async () => {
         await window.graph.loadFromFile();
+    });
+
+    snapButton.addEventListener('click', () => {
+        window.graph.toggleSnap();
     });
 
     document.querySelectorAll('.shape-option').forEach(option => {
