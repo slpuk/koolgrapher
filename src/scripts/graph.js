@@ -105,6 +105,7 @@ class Graph {
         else if (node.shape === 'triangle') size = 25;
         else if (node.shape === 'diamond') size = 25;
         else if (node.shape === 'hexagon') size = 25;
+        else if (node.shape === 'parallelogram') size = 25;
 
         this.nodeSizeSlider.value = size;
         this.nodeSizeValue.textContent = size;
@@ -254,6 +255,8 @@ class Graph {
         } else if (node.shape === 'diamond') {
             node.scale = size / 25;
         } else if (node.shape === 'hexagon') {
+            node.scale = size / 25;
+        } else if (node.shape === 'parallelogram') {
             node.scale = size / 25;
         }
     }
@@ -485,10 +488,14 @@ class Graph {
                 if (manhattanDist <= tolerance * 1.5) {
                     return node;
                 }
-            }
-            else if (node.shape === 'hexagon') {
+            } else if (node.shape === 'hexagon') {
                 const manhattanDist = Math.abs(x - node.position.x) + Math.abs(y - node.position.y);
                 if (manhattanDist <= tolerance * 1.5) {
+                    return node;
+                }
+            } else if (node.shape === 'parallelogram') {
+                const manhattanDist = Math.abs(x - node.position.x) + Math.abs(y - node.position.y);
+                if (manhattanDist <= tolerance * 1.8) {
                     return node;
                 }
             }
@@ -515,6 +522,20 @@ class Graph {
                 break;
             case 'hexagon':
                 node = this.two.makePolygon(x, y, 25, 6);
+                break;
+            case 'parallelogram':
+                const width = 40;
+                const height = 40;
+                const skew = 6;
+
+                node = this.two.makePath(
+                    x - width / 2 + skew, y - height / 2,
+                    x + width / 2 + skew, y - height / 2,
+                    x + width / 2 - skew, y + height / 2,
+                    x - width / 2 - skew, y + height / 2
+                );
+                node.closed = true;
+                node.fill = 'var(--main-bg)';
                 break;
             default:
                 node = this.two.makeCircle(x, y, 20);
@@ -720,20 +741,20 @@ class Graph {
             'add': document.getElementById('add'),
             'connect': document.getElementById('connect'),
             'delete': document.getElementById('delete'),
-            'snap': document.getElementById('snap')
+            //'snap': document.getElementById('snap')
         };
 
         if (buttons.connect) buttons.connect.classList.remove('active');
 
-        if (buttons.snap) buttons.snap.classList.remove('active');
+        //if (buttons.snap) buttons.snap.classList.remove('active');
 
         if (this.mode === 'connect' && buttons.connect) {
             buttons.connect.classList.add('active');
         }
 
-        if (this.snapActive && buttons.snap) {
+        /*if (this.snapActive && buttons.snap) {
             buttons.snap.classList.add('active');
-        }
+        }*/
     }
 
     updateStatusBar(message = null) {
@@ -788,7 +809,8 @@ class Graph {
                     node.shape === 'square' ? node.width / 2 :
                         node.shape === 'triangle' ? 25 :
                             node.shape === 'diamond' ? 25 :
-                                node.shape === 'hexagon' ? 25 : 20
+                                node.shape === 'hexagon' ? 25 :
+                                    node.shape === 'parallelogram' ? 25 : 20
             })),
             edges: this.edges.map(edge => ({
                 id: edge.id,
@@ -895,7 +917,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteButton = document.getElementById('delete');
     const saveButton = document.getElementById('save');
     const loadButton = document.getElementById('load');
-    const snapButton = document.getElementById('snap');
+    //const snapButton = document.getElementById('snap');
 
     connectButton.replaceWith(connectButton.cloneNode(true));
     const newConnectButton = document.getElementById('connect');
@@ -932,9 +954,9 @@ document.addEventListener('DOMContentLoaded', () => {
         await window.graph.loadFromFile();
     });
 
-    snapButton.addEventListener('click', () => {
+    /*snapButton.addEventListener('click', () => {
         window.graph.toggleSnap();
-    });
+    });*/
 
     document.querySelectorAll('.shape-option').forEach(option => {
         option.addEventListener('click', () => {
