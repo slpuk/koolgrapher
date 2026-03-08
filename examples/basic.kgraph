@@ -6,7 +6,7 @@
       "y": 67.79999542236328,
       "shape": "square",
       "label": "Квадрат",
-      "color": "#d4d4d4",
+      "color": "var(--main-text)",
       "linewidth": 1,
       "size": 20
     },
@@ -16,17 +16,17 @@
       "y": 90.79999542236328,
       "shape": "circle",
       "label": "Круг",
-      "color": "#d4d4d4",
+      "color": "var(--main-text)",
       "linewidth": 1,
       "size": 20
     },
     {
       "id": "4c6b972e-ece4-4cd9-be9e-b0147941d910",
-      "x": 92.60000038146973,
-      "y": 186.79999542236328,
+      "x": 81.60000038146973,
+      "y": 178.79999542236328,
       "shape": "triangle",
       "label": "Треугольник",
-      "color": "#d4d4d4",
+      "color": "var(--main-text)",
       "linewidth": 1,
       "size": 25
     },
@@ -36,29 +36,61 @@
       "y": 216.79999542236328,
       "shape": "diamond",
       "label": "Ромб",
-      "color": "#d4d4d4",
+      "color": "var(--main-text)",
+      "linewidth": 1,
+      "size": 25
+    },
+    {
+      "id": "77798377-b132-4a45-94a2-55d8425684f0",
+      "x": 200.60000038146973,
+      "y": 340.7999954223633,
+      "shape": "hexagon",
+      "label": "Шестиугольник",
+      "color": "var(--main-text)",
+      "linewidth": 1,
+      "size": 25
+    },
+    {
+      "id": "5906fb33-7834-4982-af87-e9bf165f2bf9",
+      "x": 360.6000003814697,
+      "y": 138.79999542236328,
+      "shape": "parallelogram",
+      "label": "Параллелограмм",
+      "color": "var(--main-text)",
       "linewidth": 1,
       "size": 25
     }
   ],
   "edges": [
     {
-      "id": "016eafe5-736d-4709-ad31-2ff6e5b04fac",
+      "id": "f5e3296a-e885-49ca-b165-d667385ab68a",
       "startId": "52db5ddd-cf64-4cb2-b944-4465613f9d30",
       "endId": "418b4180-a121-4661-91c0-173299250fb8",
       "label": "Ребро 1"
     },
     {
-      "id": "b924e0e1-82c5-4760-a272-a90e0b6aa4a9",
+      "id": "3d6a4814-948b-4d2a-b4af-a29e5c4053ed",
       "startId": "418b4180-a121-4661-91c0-173299250fb8",
       "endId": "7fe7021c-52e9-432a-81b3-32cbf47fe082",
       "label": "Ребро 2"
     },
     {
-      "id": "3a6d28fc-e343-43bc-8929-e8f76e253d22",
+      "id": "3b0d930a-6855-4e35-9307-d54d50d315c6",
       "startId": "4c6b972e-ece4-4cd9-be9e-b0147941d910",
       "endId": "7fe7021c-52e9-432a-81b3-32cbf47fe082",
       "label": "Ребро 3"
+    },
+    {
+      "id": "a19c0984-fbf5-463b-8e1b-26239073a134",
+      "startId": "7fe7021c-52e9-432a-81b3-32cbf47fe082",
+      "endId": "77798377-b132-4a45-94a2-55d8425684f0",
+      "label": "Ребро 4"
+    },
+    {
+      "id": "43d4516f-baf3-4b0b-ad8a-6e4457998b49",
+      "startId": "7fe7021c-52e9-432a-81b3-32cbf47fe082",
+      "endId": "5906fb33-7834-4982-af87-e9bf165f2bf9",
+      "label": "Ребро 5"
     }
   ]
 }
