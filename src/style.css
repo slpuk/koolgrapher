@@ -170,6 +170,7 @@ body {
 }
 
 .toolbar #connect.active,
+.toolbar #snap.active,
 .toolbar #save {
     background: #2e7d32;
     border-color: #1b5e20;
@@ -177,11 +178,13 @@ body {
 }
 
 .toolbar #connect.active:hover,
+.toolbar #snap.active:hover,
 .toolbar #save:hover {
     background: #35913a;
 }
 
 .toolbar #connect.active:active,
+.toolbar #snap.active:active,
 .toolbar #save:active {
     background: #1b5e20;
 }
@@ -547,23 +550,25 @@ body {
 }
 
 .shape-selector {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    justify-content: space-between;
+    margin-top: 4px;
+    width: 100%;
 }
 
 .shape-btn {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    padding: 6px 2px;
     background: var(--toolbar-button-bg);
     border: 2px solid var(--border-color);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
     color: var(--main-text);
+    min-width: 0;
 }
 
 .shape-btn:hover {
